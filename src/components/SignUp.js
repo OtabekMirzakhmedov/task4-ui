@@ -25,19 +25,19 @@ const SignUp = () => {
       };
   return (
     <Form className='p-3' onSubmit={handleSubmit(onSubmit)}>
-    <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Group className="mb-3">
       <Form.Control type="name" placeholder="First & Last name " {...register('name')} />
         {errors.name && <p className='text-danger'>{errors.name.message}</p>}
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Group className="mb-3">
       <Form.Control type="email" placeholder="Enter email"{...register('email')} />
         {errors.email && <p className='text-danger'>{errors.email.message}</p>}
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Group className="mb-3">
       <Form.Control type="password" placeholder="Password" {...register('password')} />
         {errors.password && <p className='text-danger'>{errors.password.message}</p>}
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Group className="mb-3">
       <Form.Control type="password" placeholder="Confirm Password" {...register('confirmPassword')} />
         {errors.confirmPassword && <p> className='text-danger'{errors.confirmPassword.message}</p>}
     </Form.Group>

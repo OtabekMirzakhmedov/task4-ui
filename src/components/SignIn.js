@@ -1,17 +1,36 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
+import AuthContext from '../context/AuthProvider';
 
 const SignIn = () => {
-    const { handleSubmit, register, formState: { errors } } = useForm();
+  const { handleSubmit, register, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const { setAuth } = useContext(AuthContext);
 
-  const onSubmit = (data) => {
-    console.log(data); // Do something with the form data
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('/api/User/login', data);
+      if (response.status === 200) {
+        setAuth(true);
+        console.log("i am here");
+        console.log( AuthContext)
+
+        navigate('/users');
+      }
+    } catch (error) {
+  
+        setError('errorMessage');
+    }
   };
   return (
     <Form className='p-3' onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      {error && <p className="text-danger">{error}</p>}
+      <Form.Group className="mb-3">
         <Form.Control type="email" placeholder="Enter email" {...register('email', {
               required: true,
               pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
@@ -23,7 +42,7 @@ const SignIn = () => {
             <p className="text-danger">Email is not valid.</p>
           )}
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3">
         <Form.Control type="password" placeholder="Password" {...register('password', {
               required: true,
               minLength: 1

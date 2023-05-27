@@ -1,15 +1,20 @@
+import { Routes, Route} from 'react-router-dom';
 import './App.css';
-import AuthPage from './pages/AuthPage';
-import UsersTable from './pages/UsersTable';
+import AuthPage from './components/AuthPage';
+import UsersTable from './components/UsersTable';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
+
   return (
-    <div className="App">
-      <header>
-          <UsersTable/>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<AuthPage />} />
+      
+        <Route path="users" element={<UsersTable/>}/>
+      
+      {/* Other routes */}
+    </Routes>
     
   );
 }
