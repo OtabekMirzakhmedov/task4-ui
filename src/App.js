@@ -2,20 +2,25 @@ import { Routes, Route} from 'react-router-dom';
 import './App.css';
 import AuthPage from './components/AuthPage';
 import UsersTable from './components/UsersTable';
-import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './hooks/useAuth';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 
 function App() {
 
   return (
+    <AuthProvider>
     <Routes>
       <Route path="/" element={<AuthPage />} />
-      
-        <Route path="users" element={<UsersTable/>}/>
-      
-      {/* Other routes */}
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <UsersTable />
+          </ProtectedRoute>}
+      />
     </Routes>
-    
+    </AuthProvider>
   );
 }
 

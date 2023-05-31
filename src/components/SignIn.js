@@ -1,24 +1,24 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
-import AuthContext from '../context/AuthProvider';
+import {useAuth} from '../hooks/useAuth';
 
 const SignIn = () => {
   const { handleSubmit, register, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { setAuth } = useContext(AuthContext);
+  const { login } = useAuth();
+
 
   const onSubmit = async (data) => {
     try {
+      console.log(data);
       const response = await axios.post('/api/User/login', data);
       if (response.status === 200) {
-        setAuth(true);
-        console.log("i am here");
-        console.log( AuthContext)
+        login(response.data);
 
         navigate('/users');
       }

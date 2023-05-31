@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import axios from '../api/axios';
 
 const schema = yup.object().shape({
-    name: yup.string().required('Name is required'),
+    fullName: yup.string().required('Name is required'),
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     confirmPassword: yup
@@ -20,13 +21,19 @@ const SignUp = () => {
         resolver: yupResolver(schema),
       });
     
-      const onSubmit = (data) => {
-        console.log(data); // Do something with the form data
+      const onSubmit = async (data) => {
+        try {
+          // Make the API register call
+          const response = await axios.post('/api/User/register', data);
+          console.log(response);
+        } catch (error) {
+          console.log(error); // Handle the error
+        }
       };
   return (
     <Form className='p-3' onSubmit={handleSubmit(onSubmit)}>
     <Form.Group className="mb-3">
-      <Form.Control type="name" placeholder="First & Last name " {...register('name')} />
+      <Form.Control type="name" placeholder="First & Last name " {...register('fullName')} />
         {errors.name && <p className='text-danger'>{errors.name.message}</p>}
     </Form.Group>
     <Form.Group className="mb-3">
