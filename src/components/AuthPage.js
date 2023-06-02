@@ -35,7 +35,6 @@ const AuthPage = () => {
                 <SignUp onSignUpSuccess={handleSignUpSuccess}/>
             </Tab>
         </Tabs>
-
       </Card>
     </div>
   )

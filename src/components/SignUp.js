@@ -24,7 +24,6 @@ const SignUp = ({ onSignUpSuccess  }) => {
     
       const onSubmit = async (data) => {
         try {
-          // Make the API register call
           const response = await axios.post('/api/User/register', data);
           console.log(response);
           onSignUpSuccess();

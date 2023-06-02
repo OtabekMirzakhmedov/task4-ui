@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import {useAuth} from '../hooks/useAuth';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
 
@@ -96,40 +95,34 @@ const UsersTable = () => {
 
   return (
     <div className='container bg-white border-2 shadow mt-5'>
-      
       <div className="d-flex justify-content-between align-items-center border-bottom p-2">
-  <h2>Users List</h2>
-  <div className="d-flex gap-3">
-    <div className="vr"></div>
-    <button type="button" className="btn btn-danger" onClick={handleBlockUsers} disabled={selectedUsers.length === 0}>
-      <i className="bi bi-lock"></i> block
-    </button>
-    <div className="vr"></div>
-    <button type="button" className="btn btn-success" onClick={handleActivateUsers} disabled={selectedUsers.length === 0}>
-      <i className="bi bi-unlock-fill"></i>
-    </button>
-    <div className="vr"></div>
-    <button type="button" className="btn btn-dark" onClick={handleDeleteUsers} disabled={selectedUsers.length === 0}>
-      <i className="bi bi-trash"></i>
-    </button>
-    <div className="vr"></div>
-    <button type="button" className="btn btn-warning" onClick={handleSignout}>
-      <i className="bi bi-box-arrow-right"></i> sign out
-    </button>
-  </div>
-</div>
-
+         <h2>Users List</h2>
+         <div className="d-flex gap-3">
+            <div className="vr"></div>
+            <button type="button" className="btn btn-danger" onClick={handleBlockUsers} disabled={selectedUsers.length === 0}>
+              <i className="bi bi-lock"></i> block
+            </button>
+            <div className="vr"></div>
+            <button type="button" className="btn btn-success" onClick={handleActivateUsers} disabled={selectedUsers.length === 0}>
+              <i className="bi bi-unlock-fill"></i>
+            </button>
+            <div className="vr"></div>
+            <button type="button" className="btn btn-dark" onClick={handleDeleteUsers} disabled={selectedUsers.length === 0}>
+              <i className="bi bi-trash"></i>
+            </button>
+            <div className="vr"></div>
+            <button type="button" className="btn btn-warning" onClick={handleSignout}>
+              <i className="bi bi-box-arrow-right"></i> sign out
+            </button>
+          </div>
+      </div>
       
       <table className='table table-hover border-dark mt-3'>
         <thead className='border-2'>
           <tr>
-            <th scope='col'><input
-          type="checkbox"
-          className="form-check-input"
-          id="checkbox-select-all"
-          checked={selectedUsers.length === users.length}
-          onChange={handleSelectAll}
-        /></th>
+            <th scope='col'>
+              <input type="checkbox" className="form-check-input" checked={selectedUsers.length === users.length} onChange={handleSelectAll}/>
+              </th>
             <th scope='col'>Id</th>
             <th scope='col'>Email</th>
             <th scope='col'>Full Name</th>

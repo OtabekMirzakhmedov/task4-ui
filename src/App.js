@@ -1,5 +1,4 @@
 import { Routes, Route} from 'react-router-dom';
-import './App.css';
 import AuthPage from './components/AuthPage';
 import UsersTable from './components/UsersTable';
 import { AuthProvider } from './hooks/useAuth';
