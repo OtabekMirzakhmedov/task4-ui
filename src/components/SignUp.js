@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,8 @@ const schema = yup.object().shape({
       .required('Confirm Password is required'),
   });
 
-const SignUp = () => {
+const SignUp = ({ onSignUpSuccess  }) => {
+  const [error, setError] = useState('');
     const { handleSubmit, register, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
       });
@@ -26,12 +27,20 @@ const SignUp = () => {
           // Make the API register call
           const response = await axios.post('/api/User/register', data);
           console.log(response);
+          onSignUpSuccess();
         } catch (error) {
-          console.log(error); // Handle the error
+          if(error.response){
+            const emailTakenError = error.response.data;
+            setError(emailTakenError[''][1]);
+          } else{
+            console.log(error);
+          }
         }
       };
   return (
+  
     <Form className='p-3' onSubmit={handleSubmit(onSubmit)}>
+      {error && <p className="text-danger">{error}</p>}
     <Form.Group className="mb-3">
       <Form.Control type="name" placeholder="First & Last name " {...register('fullName')} />
         {errors.name && <p className='text-danger'>{errors.name.message}</p>}
