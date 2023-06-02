@@ -3,6 +3,7 @@ import axios from '../api/axios';
 import {useAuth} from '../hooks/useAuth';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment/moment';
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -33,14 +34,6 @@ const UsersTable = () => {
 
       if( selectedUsers.includes(user)){
         logout();
-        <div class="toast align-items-center text-bg-primary border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-          Hello, world! This is a toast message.
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
         navigate("/");
       }
       fetchUsers();
@@ -66,16 +59,16 @@ const UsersTable = () => {
       await axios.delete('/api/User/bulk-delete', {
         headers: { 'Content-Type': 'application/json' },
         data:  selectedUsers })
+        if( selectedUsers.includes(user)){
+          logout();
+          navigate("/");
+        }
       fetchUsers();
+      setSelectedUsers([]);
     } catch (error) {
       console.log('Error deleting users:', error);
     }
   };
-
-
-
-
-
 
   const handleUserSelect = (userId) => {
     if (selectedUsers.includes(userId)) {
@@ -160,8 +153,8 @@ const UsersTable = () => {
               <td>{user.id}</td>
               <td>{user.email}</td>
               <td>{user.fullName}</td>
-              <td>{user.createdDate}</td>
-              <td>{user.lastLoginDate}</td>
+              <td>{moment(user.createdDate).format('DD-MM-YYYY')}</td>
+              <td>{user.lastLoginDate ? moment(user.lastLoginDate).format('DD-MM-YYYY'): ''}</td>
               <td>
                 {user.isActive ? (
                   <button type="button" className="btn btn-outline-success btn-sm rounded-pill" >active</button>

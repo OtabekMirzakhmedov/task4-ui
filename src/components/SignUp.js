@@ -32,9 +32,8 @@ const SignUp = ({ onSignUpSuccess  }) => {
           if(error.response){
             const emailTakenError = error.response.data;
             setError(emailTakenError[''][1]);
-          } else{
-            console.log(error);
-          }
+          } 
+          
         }
       };
   return (
@@ -55,7 +54,7 @@ const SignUp = ({ onSignUpSuccess  }) => {
     </Form.Group>
     <Form.Group className="mb-3">
       <Form.Control type="password" placeholder="Confirm Password" {...register('confirmPassword')} />
-        {errors.confirmPassword && <p> className='text-danger'{errors.confirmPassword.message}</p>}
+        {errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
     </Form.Group>
     <Button variant="info" type="submit">
       Register

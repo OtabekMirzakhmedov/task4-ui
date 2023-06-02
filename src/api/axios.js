@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://localhost:7001'
+    baseURL: 'https://task4api.azurewebsites.net'
 });

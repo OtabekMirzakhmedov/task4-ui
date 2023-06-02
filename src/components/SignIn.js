@@ -24,7 +24,11 @@ const SignIn = () => {
       }
     } catch (error) {
   
-        setError('errorMessage');
+      if(error.response){
+        const emailTakenError = error.response.data;
+        console.log(emailTakenError);
+        setError(emailTakenError);
+      } 
     }
   };
   return (
